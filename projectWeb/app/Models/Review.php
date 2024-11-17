@@ -10,6 +10,14 @@ class Review extends Model
         'Event_ID', 'User_ID', 'Rating', 'Comment', 'Date_Posted'
     ];
 
-    // Relationship definitions...
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'Event_ID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'User_ID');
+    }
 }
 

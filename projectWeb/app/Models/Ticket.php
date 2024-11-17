@@ -10,5 +10,13 @@ class Ticket extends Model
         'Event_ID', 'User_ID', 'Status', 'Booking_Date', 'cancel_date', 'modified_date'
     ];
 
-    // Relationship definitions...
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'Event_ID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'User_ID');
+    }
 }

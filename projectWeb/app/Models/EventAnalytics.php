@@ -10,5 +10,8 @@ class EventAnalytics extends Model
         'event_id', 'total_ticket_sold', 'total_revenue', 'average_rating', 'event_date'
     ];
 
-    // Relationship definitions...
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }
