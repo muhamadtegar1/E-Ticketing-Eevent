@@ -1,15 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Users</h1>
-    <table id="usersTable" class="table table-striped">
+    <h2>Manajemen Pengguna</h2>
+    <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nama</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Actions</th>
+                <th>Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -17,26 +18,20 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->roles->pluck('name')->join(', ') }}</td>
+                <td>{{ $user->role->name }}</td>
+                <td>{{ $user->is_active ? 'Aktif' : 'Nonaktif' }}</td>
                 <td>
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{ $users->links() }}
 </div>
-@endsection
-
-@section('scripts')
-<script>
-    $(document).ready(function () {
-        $('#usersTable').DataTable();
-    });
-</script>
 @endsection

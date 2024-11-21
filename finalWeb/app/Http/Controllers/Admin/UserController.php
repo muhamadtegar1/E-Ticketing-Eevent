@@ -14,9 +14,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->paginate(10); // Pagination 10 pengguna per halaman
+        // Memuat data pengguna beserta relasi roles dengan pagination 10 pengguna per halaman
+        $users = User::with('roles')->paginate(10);
+        
+        // Mengembalikan data ke view
         return view('admin.users.index', compact('users'));
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.

@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EventController extends Controller
 {
+    use AuthorizesRequests;
     // Menampilkan semua acara (khusus untuk Admin)
     public function index()
     {
-        $events = Event::all();
-        return view('events.index', compact('events'));
+        $events = Event::paginate(10);
+        return view('admin.events.index', compact('events'));
     }
+    
 
     // Menyimpan acara baru
     public function store(Request $request)

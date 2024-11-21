@@ -29,9 +29,11 @@ class Event extends Model
     }
 
     // Relasi One-to-Many ke Favorite
-    public function favorites()
+    public function favoritedByUsers()
     {
-        return $this->hasMany(Favorite::class);
+        // Relasi many-to-many ke tabel 'favorites' melalui model 'Favorite'
+        return $this->belongsToMany(User::class, 'favorites', 'event_id', 'user_id')
+                    ->using(Favorite::class);
     }
 
     // Relasi One-to-Many ke Ticket

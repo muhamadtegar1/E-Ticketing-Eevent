@@ -58,9 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
-    public function favorites()
+    public function favoriteEvents()
     {
-        return $this->hasMany(Favorite::class);
+        // Relasi many-to-many menggunakan tabel pivot 'favorites'
+        return $this->belongsToMany(Event::class, 'favorites', 'user_id', 'event_id')
+                    ->using(Favorite::class);
     }
 
     public function tickets()

@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Favorite extends Model
+class Favorite extends Pivot
 {
-    use HasFactory;
-
+    protected $table = 'favorites'; // Nama tabel pivot
     protected $fillable = [
         'user_id',
         'event_id',
@@ -26,4 +24,3 @@ class Favorite extends Model
         return $this->belongsTo(Event::class);
     }
 }
-
