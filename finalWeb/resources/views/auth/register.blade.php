@@ -1,59 +1,55 @@
 @extends('layouts.app')
 
+@section('title', 'Register')
+
 @section('content')
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="card p-4 shadow-lg" style="width: 400px;">
-        <h4 class="text-center">Register</h4>
-
-        <!-- Menampilkan Pesan Sukses dan Error -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
-
-        <form action="{{ route('register') }}" method="POST">
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-sm bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Register</h2>
+        <form action="{{ route('auth.register') }}" method="POST" class="space-y-6">
             @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" required
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" required
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-green-500">
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" required
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+
+            <!-- Confirm Password -->
+            <div>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <button type="submit" class="btn btn-success w-100">Daftar</button>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit"
+                class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Register
+                </button>
+            </div>
         </form>
+
+        <!-- Login Link -->
+        <p class="text-sm text-gray-600 mt-6 text-center">
+            Already have an account? 
+            <a href="{{ route('auth.login') }}" class="text-blue-600 hover:underline">Login here</a>.
+        </p>
     </div>
 </div>
-@push('scripts')
-
-<script>
-document.querySelector('form').addEventListener('submit', function(e) {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('password_confirmation').value;
-
-    if (password !== confirmPassword) {
-        e.preventDefault();
-        alert('Password dan konfirmasi password harus sama!');
-    }
-});
-</script>
-@endpush
 @endsection

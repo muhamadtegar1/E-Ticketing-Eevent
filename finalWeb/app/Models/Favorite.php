@@ -15,12 +15,12 @@ class Favorite extends Pivot
     // Relasi ke User
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
-
+    
     // Relasi ke Event
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }

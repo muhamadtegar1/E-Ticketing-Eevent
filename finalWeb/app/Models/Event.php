@@ -22,30 +22,23 @@ class Event extends Model
         'organizer_id',
     ];
 
-    // Relasi One-to-Many ke Review
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
+    protected $casts = [
+        'datetime_start' => 'datetime',
+        'datetime_end' => 'datetime',
+    ];
 
-    // Relasi One-to-Many ke Favorite
-    public function favoritedByUsers()
+    // Relasi many-to-many ke tabel 'users' melalui tabel pivot 'favorites'
+    public function favorites()
     {
-        // Relasi many-to-many ke tabel 'favorites' melalui model 'Favorite'
         return $this->belongsToMany(User::class, 'favorites', 'event_id', 'user_id')
-                    ->using(Favorite::class);
+                    ->using(Favorite::class)
+                    ->withTimestamps();
     }
-
+    
     // Relasi One-to-Many ke Ticket
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
-    }
-
-    // Relasi One-to-One ke EventAnalytics
-    public function analytics()
-    {
-        return $this->hasOne(EventAnalytics::class);
     }
 
     // Relasi ke Organizer (User)

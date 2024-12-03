@@ -3,31 +3,51 @@
 @section('title', 'Create User')
 
 @section('content')
-<div class="container">
-    <h1 class="my-4">Create User</h1>
-    <form action="{{ route('admin.users.store') }}" method="POST">
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Create User</h1>
+
+    <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
         @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" required>
+
+        <!-- Name -->
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" name="name" id="name" required
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" required>
+
+        <!-- Email -->
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" required
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" required>
+
+        <!-- Password -->
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" required
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select name="role" id="role" class="form-control" required>
+
+        <!-- Role -->
+        <div>
+            <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+            <select name="role" id="role" required
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 <option value="1">Admin</option>
                 <option value="2">Organizer</option>
                 <option value="3">User</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Create</button>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit"
+                    class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                Create
+            </button>
+        </div>
     </form>
 </div>
 @endsection

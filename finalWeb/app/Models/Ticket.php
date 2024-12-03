@@ -17,6 +17,12 @@ class Ticket extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'booking_date' => 'datetime',
+        'cancel_date' => 'datetime',
+    ];
+    
+
     // Relasi ke Event
     public function event()
     {
@@ -27,12 +33,6 @@ class Ticket extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Relasi One-to-Many ke TicketStatusHistory
-    public function statusHistories()
-    {
-        return $this->hasMany(TicketStatusHistory::class);
     }
 }
 

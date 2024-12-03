@@ -22,16 +22,28 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required|string',
             'datetime_start' => 'required|date',
             'datetime_end' => 'required|date|after:datetime_start',
             'location' => 'required|string',
             'ticket_price' => 'required|numeric|min:0',
             'ticket_quota' => 'required|integer|min:1',
-            'image_URL' => 'nullable|url',
+            'image_URL' => 'required|url', // Validasi gambar harus berupa URL valid
         ]);
 
-        Event::create($validated);
+        // Menambahkan data
+        Event::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'datetime_start' => $validated['datetime_start'],
+            'datetime_end' => $validated['datetime_end'],
+            'location' => $validated['location'],
+            'ticket_price' => $validated['ticket_price'],
+            'ticket_quota' => $validated['ticket_quota'],
+            'available_ticket' => $validated['ticket_quota'], // Default available_ticket = ticket_quota
+            'image_URL' => $validated['image_URL'],
+            'organizer_id' => auth()->id(),
+        ]);
 
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
     }
@@ -45,15 +57,16 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required|string',
             'datetime_start' => 'required|date',
             'datetime_end' => 'required|date|after:datetime_start',
             'location' => 'required|string',
             'ticket_price' => 'required|numeric|min:0',
             'ticket_quota' => 'required|integer|min:1',
-            'image_URL' => 'nullable|url',
+            'image_URL' => 'required|url', // Validasi gambar harus berupa URL valid
         ]);
 
+        // Update data event
         $event->update($validated);
 
         return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class OrganizerTicketController extends Controller
 {
     public function index()
     {
@@ -21,7 +21,7 @@ class TicketController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'status' => 'required|in:approved,canceled',
+            'status' => 'required|in:approved,canceled', // Validasi status
         ]);
 
         $ticket = Ticket::findOrFail($id);

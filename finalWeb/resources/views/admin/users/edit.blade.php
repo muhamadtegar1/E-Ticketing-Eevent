@@ -3,30 +3,55 @@
 @section('title', 'Edit User')
 
 @section('content')
-<div class="container">
-    <h1 class="my-4">Edit User</h1>
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit User</h1>
+
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-6">
         @csrf
         @method('PUT')
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}" required>
+
+        <!-- Name -->
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" id="name" name="name" value="{{ $user->name }}" required
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}" required>
+
+        <!-- Email -->
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" id="email" name="email" value="{{ $user->email }}" required
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select name="role" id="role" class="form-control">
-                @foreach($roles as $role)
+
+        <!-- Password -->
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" id="password" name="password" placeholder="Leave blank to keep current password"
+                   class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <!-- Roles -->
+        <div>
+            <label for="roles" class="block text-sm font-medium text-gray-700">Roles</label>
+            <select id="roles" name="role_id" required
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <option value="">-- Select Role --</option>
+                @foreach ($roles as $role)
                     <option value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
                         {{ $role->name }}
                     </option>
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Update User</button>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Update
+            </button>
+        </div>
     </form>
 </div>
 @endsection

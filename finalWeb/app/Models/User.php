@@ -50,19 +50,21 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'user_roles');
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+    
+    // Cek apakah user memiliki role tertentu
+    public function hasRole($role)
+    {
+        return $this->roles->contains('name', $role);
     }
 
-    public function reviews()
+    // Relasi many-to-many ke tabel 'events' melalui tabel pivot 'favorites'
+    public function favorites()
     {
-        return $this->hasMany(Review::class);
-    }
-
-    public function favoriteEvents()
-    {
-        // Relasi many-to-many menggunakan tabel pivot 'favorites'
         return $this->belongsToMany(Event::class, 'favorites', 'user_id', 'event_id')
-                    ->using(Favorite::class);
+                    ->using(Favorite::class)
+                    ->withTimestamps();
     }
 
     public function tickets()
